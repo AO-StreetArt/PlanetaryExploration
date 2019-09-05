@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>Planetary Rover</title>
+
+        <style>
+            html, body {
+                overflow: hidden;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            #renderCanvas {
+                width: 100%;
+                height: 100%;
+                touch-action: none;
+            }
+        </style>
+
+        <script src="https://preview.babylonjs.com/babylon.js"></script>
+        <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+        <script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
+    </head>
+
+   <body>
+
+    <canvas id="renderCanvas" touch-action="none"></canvas>
+    <script src="js/babylon/addCamera.js"></script>
+    <script src="js/babylon/loadHdri.js"></script>
+    <script src="js/babylon/loadRover.js"></script>
+    <script src="js/babylon/groundPhysicsExport.js"></script>
+    <script src="js/babylon/roverPhysics.js"></script>
+    <script src="js/babylon/rockVertices.js"></script>
+    <script src="js/babylon/loadLandscape.js"></script>
+    <script src="js/createScene.js"></script>
+    <script src="js/babylon/keyboardControls.js"></script>
+    <script>
+        function main() {
+          // BabylonJS Variables
+          var canvas = document.getElementById("renderCanvas"); // Get the canvas element
+          var engine = new BABYLON.Engine(canvas, true); // Generate the BABYLON 3D engine
+
+          // Build the Babylon Scene
+          var scene = createScene(canvas, engine);
+
+          // Setup the Keyboard input via Babylonjs Action Manager
+          scene.actionManager = new BABYLON.ActionManager(scene);
+          createKeyboardControls(scene.actionManager);
+
+          // Register a render loop to repeatedly render the scene
+          engine.runRenderLoop(function () {
+                  roverRenderLoop(scene);
+          });
+
+          // Watch for browser/canvas resize events
+          window.addEventListener("resize", function () {
+                  engine.resize();
+          });
+        }
+        window.addEventListener('DOMContentLoaded', main);
+    </script>
+
+   </body>
+
+</html>

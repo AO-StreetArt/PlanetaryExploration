@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+      <title>Planetary Rover</title>
+
+      <style>
+        html, body {
+          overflow: hidden;
+          width: 100%;
+          height: 100%;
+          margin: 0;
+          padding: 0;
+        }
+
+        #renderCanvas {
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+      </style>
+
+      <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+      <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+      <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+      <script src="https://preview.babylonjs.com/babylon.js"></script>
+      <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+      <script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/cyborg/bootstrap.min.css">
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+   </head>
+
+   <body>
+     <div class="container-fluid">
+       <div class="row">
+         <div class="col-md-12">
+           <h3 class="text-center">
+             Planetary Rover
+           </h3>
+         </div>
+       </div>
+       <div class="row">
+         <div class="col-md-4">
+           <div id="main_page_container"></div>
+         </div>
+         <div class="col-md-8">
+           <canvas id="renderCanvas" touch-action="none"></canvas>
+         </div>
+       </div>
+      </div>
+      <script src="js/react/mainPageContainer.js" type="text/babel"></script>
+      <script src="js/createPreviewScene.js"></script>
+      <script>
+      function main() {
+        var canvas = document.getElementById("renderCanvas"); // Get the canvas element
+        var engine = new BABYLON.Engine(canvas, true); // Generate the BABYLON 3D engine
+        var scene = createPreviewScene(canvas, engine); //Call the createScene function
+
+        // Register a render loop to repeatedly render the scene
+        engine.runRenderLoop(function () {
+                scene.render();
+        });
+
+        // Watch for browser/canvas resize events
+        window.addEventListener("resize", function () {
+                engine.resize();
+        });
+      }
+      window.addEventListener('DOMContentLoaded', main);
+    </script>
+   </body>
+</html>
